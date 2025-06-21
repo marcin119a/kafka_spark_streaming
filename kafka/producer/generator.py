@@ -39,7 +39,3 @@ def generate_data():
         producer.send("spark-kafka-topic", value=data)
         print(f"Wysłano: {data}")
         time.sleep(1)
-
-generator_thread = threading.Thread(target=generate_data)
-generator_thread.start()
-generator_thread.join()
