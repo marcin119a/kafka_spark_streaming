@@ -1,0 +1,45 @@
+# Ignore system temporary files
+.DS_Store
+Thumbs.db
+
+# Ignore Python cache files and directories
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore Spark output and checkpoint directories
+spark_output/
+spark_checkpoints/
+
+# Ignore log files
+*.log
+
+# Ignore Docker-related files
+docker-compose.override.yml
+*.env
+*.pid
+
+# Ignore Docker images and container files
+*.tar
+*.img
+
+# Ignore IDE-specific files
+.idea/
+*.iml
+
+# Ignore test-related files and directories
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+pytest_cache/
+junit.xml
+
+# Ignore Spark metastore and log files
+metastore_db/
+derby.log

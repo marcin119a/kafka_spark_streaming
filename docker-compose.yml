@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  kafka:
+    build: ./kafka
+    container_name: kraft-kafka
+    ports:
+      - "9092:9092"
+    networks:
+      - spark-net
+
+  producer:
+    build: ./kafka/producer
+    container_name: kafka-producer
+    depends_on:
+      - kafka
+    networks:
+      - spark-net
+
+  spark:
+    build: ./spark
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"     # Spark master
+      - "8080:8080"     # Spark UI
+    networks:
+      - spark-net
+
+  pyspark-client:
+    build: ./pyspark_client
+    container_name: spark-client
+    volumes:
+      - ./spark_output:/app/output
+      - ./spark_checkpoints:/app/checkpoints
+    depends_on:
+      - spark
+      - kafka
+    networks:
+      - spark-net
+    command: ["python", "read_kafka_stream.py"]
+
+networks:
+  spark-net:
